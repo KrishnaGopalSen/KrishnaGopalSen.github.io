@@ -132,7 +132,7 @@ class ServicesSection extends StatelessWidget {
                     isMob ? 1 : (R.isTablet(context) ? 2 : 3),
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
-                    childAspectRatio: isMob ? 1.8 : 1.6,
+                    childAspectRatio: isMob ? 1.4 : 1.6,
                   ),
                   itemCount: _services.length,
                   itemBuilder: (ctx, i) =>
