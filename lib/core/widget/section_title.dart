@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutternode/themes/app_theme.dart';
+import 'package:krishnaGopal/themes/app_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SectionTitle extends StatelessWidget {

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'features/home/homepage.dart';
-import 'package:flutternode/themes/app_theme.dart';
-import 'package:flutternode/controller/theme_controller.dart';
+import 'package:krishnaGopal/themes/app_theme.dart';
+import 'package:krishnaGopal/controller/theme_controller.dart';
 
 void main() {
 

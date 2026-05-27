@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:flutternode/controller/theme_controller.dart';
-import 'package:flutternode/themes/app_theme.dart';
+import 'package:krishnaGopal/controller/theme_controller.dart';
+import 'package:krishnaGopal/themes/app_theme.dart';
 
 import '../../core/widget/nav_bar.dart';
 import '../sections/about_section.dart';

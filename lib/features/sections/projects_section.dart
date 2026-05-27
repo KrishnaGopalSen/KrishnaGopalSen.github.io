@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutternode/controller/theme_controller.dart';
-import 'package:flutternode/core/responsive/responsive.dart';
-import 'package:flutternode/core/widget/section_title.dart';
-import 'package:flutternode/themes/app_theme.dart';
+import 'package:krishnaGopal/controller/theme_controller.dart';
+import 'package:krishnaGopal/core/responsive/responsive.dart';
+import 'package:krishnaGopal/core/widget/section_title.dart';
+import 'package:krishnaGopal/themes/app_theme.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
