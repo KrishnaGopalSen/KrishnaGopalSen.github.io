@@ -84239,7 +84239,7 @@ p=q?60:90
 o=q?24:48
 if(q)s=1
 else{n=t.w
-s=A.aS(s,m,n).w.a.a>=768&&A.aS(s,m,n).w.a.a<1024?2:3}return A.br(m,new A.dU(B.dr,m,m,new A.dW(B.ja,A.bH(A.b([B.OY,B.ft,A.atq(new A.Bj(s,20,20,q?1.8:1.6),new A.adS(),9,B.kX,!0)],t.p),B.y,B.p,B.v),m),m),B.n,r,m,m,m,m,m,new A.a7(o,p,o,p),m,m,1/0)},
+s=A.aS(s,m,n).w.a.a>=768&&A.aS(s,m,n).w.a.a<1024?2:3}return A.br(m,new A.dU(B.dr,m,m,new A.dW(B.ja,A.bH(A.b([B.OY,B.ft,A.atq(new A.Bj(s,20,20,q?1.4:1.6),new A.adS(),9,B.kX,!0)],t.p),B.y,B.p,B.v),m),m),B.n,r,m,m,m,m,m,new A.a7(o,p,o,p),m,m,1/0)},
 $S:42}
 A.adS.prototype={
 $2(a,b){return new A.qE(B.J0[b],null)},
