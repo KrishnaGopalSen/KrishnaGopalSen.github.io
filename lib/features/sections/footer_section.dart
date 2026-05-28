@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:krishnaGopal/core/string/appstring.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../core/model/all_model.dart';
 import '../../themes/app_theme.dart';
 
 // ─────────────────────────────────────────────
@@ -75,8 +77,8 @@ class _DesktopFooterBody extends StatelessWidget {
         Expanded(
           flex: 2,
           child: _FooterLinkColumn(
-            title: 'Navigation',
-            links: _navLinks,
+            title: AppStrings.footerNavTitle,
+            links: AppStrings.navLinks,
             onNavTap: onNavTap,
           ),
         ),
@@ -86,8 +88,8 @@ class _DesktopFooterBody extends StatelessWidget {
         Expanded(
           flex: 2,
           child: _FooterLinkColumn(
-            title: 'Services',
-            links: _serviceLinks,
+            title: AppStrings.footerServTitle,
+            links: AppStrings.serviceLinks,
           ),
         ),
 
@@ -126,8 +128,8 @@ class _MobileFooterBody extends StatelessWidget {
           children: [
             Expanded(
               child: _FooterLinkColumn(
-                title: 'Navigation',
-                links: _navLinks,
+                title: AppStrings.footerNavTitle,
+                links: AppStrings.navLinks,
                 onNavTap: onNavTap,
               ),
             ),
@@ -136,8 +138,8 @@ class _MobileFooterBody extends StatelessWidget {
 
             Expanded(
               child: _FooterLinkColumn(
-                title: 'Services',
-                links: _serviceLinks,
+                title: AppStrings.footerServTitle,
+                links: AppStrings.serviceLinks,
               ),
             ),
           ],
@@ -172,7 +174,7 @@ class _BrandColumn extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  'YN',
+                  AppStrings.footerInitials,
                   style: GoogleFonts.spaceGrotesk(
                     fontSize: 14,
                     fontWeight: FontWeight.w800,
@@ -185,7 +187,7 @@ class _BrandColumn extends StatelessWidget {
             const SizedBox(width: 07),
 
             Text(
-              'Krishna Gopal Sen',
+              AppStrings.footerName,
               style: GoogleFonts.spaceGrotesk(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -197,8 +199,7 @@ class _BrandColumn extends StatelessWidget {
 
         const SizedBox(height: 10),
 
-        Text(
-          'Flutter & Mobile App Developer crafting\nbold, performant cross-platform experiences.',
+        Text(AppStrings.footerTagline,
           style: GoogleFonts.inter(
             fontSize: 13.5,
             color: AppTheme.textSecondary(context),
@@ -211,7 +212,7 @@ class _BrandColumn extends StatelessWidget {
         Wrap(
           spacing: 10,
           runSpacing: 10,
-          children: _socialItems
+          children: AppStrings.socialItems
               .map((e) => _SocialIcon(item: e))
               .toList(),
         ),
@@ -245,7 +246,7 @@ class _BrandColumn extends StatelessWidget {
               const SizedBox(width: 8),
 
               Text(
-                'Available for freelance',
+                AppStrings.footerAvailable,
                 style: GoogleFonts.inter(
                   fontSize: 12,
                   color: AppTheme.greenAccent,
@@ -263,28 +264,7 @@ class _BrandColumn extends StatelessWidget {
 // ─────────────────────────────────────────────
 // LINKS
 // ─────────────────────────────────────────────
-class _FooterLink {
-  final String label;
 
-  const _FooterLink(this.label);
-}
-
-const List<_FooterLink> _navLinks = [
-  _FooterLink('Home'),
-  _FooterLink('About'),
-  _FooterLink('Skills'),
-  _FooterLink('Projects'),
-  _FooterLink('Experience'),
-  _FooterLink('Contact'),
-];
-
-const List<_FooterLink> _serviceLinks = [
-  _FooterLink('Flutter Apps'),
-  _FooterLink('UI/UX Design'),
-  _FooterLink('API Integration'),
-  _FooterLink('Consulting'),
-  _FooterLink('Code Review'),
-];
 
 class _FooterLinkColumn extends StatelessWidget {
   const _FooterLinkColumn({
@@ -294,7 +274,7 @@ class _FooterLinkColumn extends StatelessWidget {
   });
 
   final String title;
-  final List<_FooterLink> links;
+  final List<FooterLink> links;
   final Function(int index)? onNavTap;
 
   @override
@@ -335,7 +315,7 @@ class _FooterLinkItem extends StatefulWidget {
     this.onTap,
   });
 
-  final _FooterLink link;
+  final FooterLink link;
   final VoidCallback? onTap;
 
   @override
@@ -403,11 +383,60 @@ class _NewsletterColumnState
     super.dispose();
   }
 
-  void _subscribe() {
+  Future<void> _subscribe() async {
     if (_emailCtr.text.trim().contains('@')) {
       setState(() {
         subscribed = true;
       });
+
+      final String subjectdata =
+      Uri.encodeComponent(_emailCtr.text.trim());
+
+      final String body = Uri.encodeComponent(
+        '${AppStrings.message}: ${subjectdata.trim()}',
+      );
+
+      final Uri emailUri = Uri.parse(
+        'mailto:${AppStrings.email}'
+            '?subject=Stay Updated'
+            '&body=$body',
+      );
+
+      try {
+        final bool launched = await launchUrl(
+          emailUri,
+          mode: LaunchMode.externalApplication,
+        );
+
+        if (launched) {
+          setState(() {
+            subscribed = true;
+          });
+          _emailCtr.clear();
+        } else {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Could not open email app"),
+            ),
+          );
+        }
+      } catch (e) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Error: $e"),
+          ),
+        );
+      } finally {
+        if (mounted) {
+          setState(() {
+            subscribed = false;
+          });
+        }
+      }
+
+
     }
   }
 
@@ -416,8 +445,7 @@ class _NewsletterColumnState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Stay Updated',
+        Text(AppStrings.footerStayUpdated,
           style: GoogleFonts.spaceGrotesk(
             fontSize: 13,
             fontWeight: FontWeight.w700,
@@ -427,8 +455,7 @@ class _NewsletterColumnState
 
         const SizedBox(height: 12),
 
-        Text(
-          'Get notified about new projects\nand articles.',
+        Text(AppStrings.footerStayDesc,
           style: GoogleFonts.inter(
             fontSize: 13,
             color: AppTheme.textSecondary(context),
@@ -449,8 +476,7 @@ class _NewsletterColumnState
 
             const SizedBox(width: 8),
 
-            Text(
-              "You're subscribed!",
+            Text(AppStrings.footerSubscribed,
               style: GoogleFonts.inter(
                 fontSize: 13,
                 color: AppTheme.greenAccent,
@@ -469,7 +495,7 @@ class _NewsletterColumnState
                   color: AppTheme.textPrimary(context),
                 ),
                 decoration: InputDecoration(
-                  hintText: 'krishnagopalsen22@gmail.com',
+                  hintText: AppStrings.emailHint,
                   hintStyle: GoogleFonts.inter(
                     fontSize: 13,
                     color: AppTheme.textSecondary(context)
@@ -538,39 +564,13 @@ class _NewsletterColumnState
 // ─────────────────────────────────────────────
 // SOCIAL ICONS
 // ─────────────────────────────────────────────
-class _SocialItem {
-  final String label;
-  final FaIconData icon;
-  final String url;
-
-  const _SocialItem(
-      this.label,
-      this.icon,
-      this.url,
-      );
-}
-
-const List<_SocialItem> _socialItems = [
-  _SocialItem( 'GitHub',
-    FontAwesomeIcons.github,
-    'https://github.com/KrishnaGopalSen',),
-  _SocialItem( 'LinkedIn',
-    FontAwesomeIcons.linkedinIn,
-    'https://www.linkedin.com/in/krishna-gopal-8b85338b/',),
-  _SocialItem( 'Twitter',
-    FontAwesomeIcons.xTwitter,
-    'https://x.com/krishna28051986',),
-  _SocialItem(  'WhatsApp',
-    FontAwesomeIcons.whatsapp,
-    'https://wa.me/918770400610',),
-];
 
 class _SocialIcon extends StatefulWidget {
   const _SocialIcon({
     required this.item,
   });
 
-  final _SocialItem item;
+  final SocialItem item;
 
   @override
   State<_SocialIcon> createState() =>
@@ -691,7 +691,7 @@ class _FooterBottomBar extends StatelessWidget {
       int year,
       ) {
     return Text(
-      '© $year krishna Gopal. All rights reserved.',
+      '© $year ${AppStrings.footerCopyright}',
       style: GoogleFonts.inter(
         fontSize: 12,
         color: AppTheme.textSecondary(context),
@@ -703,8 +703,7 @@ class _FooterBottomBar extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          'Made with ',
+        Text(AppStrings.footerMadeWith,
           style: GoogleFonts.inter(
             fontSize: 12,
             color: AppTheme.textSecondary(context),
@@ -718,7 +717,7 @@ class _FooterBottomBar extends StatelessWidget {
         ),
 
         Text(
-          ' using Flutter',
+          AppStrings.footerUsingFlutter,
           style: GoogleFonts.inter(
             fontSize: 12,
             color: AppTheme.textSecondary(context),

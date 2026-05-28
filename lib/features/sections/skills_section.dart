@@ -1,54 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:krishnaGopal/controller/theme_controller.dart';
 import 'package:krishnaGopal/core/responsive/responsive.dart';
 import 'package:krishnaGopal/core/widget/section_title.dart';
 import 'package:krishnaGopal/themes/app_theme.dart';
 
+import '../../core/model/all_model.dart';
+import '../../core/string/appstring.dart';
+
 class SkillsSection extends StatelessWidget {
   const SkillsSection({super.key});
-
-  static const _skills = [
-    // Mobile Development
-    _Skill('Flutter', 0.95, '🐦'),
-    _Skill('Dart', 0.93, '🎯'),
-    _Skill('Kotlin', 0.82, '🟣'),
-    _Skill('Java', 0.80, '☕'),
-    _Skill('Android SDK', 0.90, '🤖'),
-    _Skill('Jetpack Compose', 0.78, '🧩'),
-
-    // Architecture & State Management
-    _Skill('MVVM', 0.88, '🏗️'),
-    _Skill('Clean Architecture', 0.86, '🛠️'),
-    _Skill('GetX', 0.90, '⚡'),
-    _Skill('Riverpod', 0.80, '🌊'),
-    _Skill('Bloc / Cubit', 0.82, '🧱'),
-    _Skill('Provider', 0.87, '📦'),
-
-    // Backend & Database
-    _Skill('REST APIs', 0.85, '🌐'),
-    _Skill('Firebase Auth', 0.88, '🔥'),
-    _Skill('Firestore', 0.84, '📂'),
-    _Skill('FCM', 0.83, '🔔'),
-    _Skill('SQLite', 0.80, '🗄️'),
-    _Skill('Hive', 0.78, '🍯'),
-    _Skill('Node.js', 0.78, '🟢'),
-    _Skill('MongoDB', 0.76, '🍃'),
-    _Skill('Spring Boot', 0.72, '☕'),
-
-    // Tools & DevOps
-    _Skill('Git & GitHub', 0.88, '🐙'),
-    _Skill('Codemagic', 0.78, '🚀'),
-    _Skill('CI/CD', 0.80, '🔄'),
-    _Skill('Android Studio', 0.92, '🤖'),
-    _Skill('VS Code', 0.90, '💻'),
-    _Skill('Play Store Deployment', 0.85, '📱'),
-    _Skill('App Store Deployment', 0.75, '🍎'),
-    _Skill('TestFlight', 0.78, '✈️'),
-    _Skill('Xcode', 0.75, '🛠️'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +33,9 @@ class SkillsSection extends StatelessWidget {
             child: Column(
               children: [
                 const SectionTitle(
-                  tag: 'MY SKILLS',
-                  title: 'Technical Expertise',
-                  subtitle:
-                  'Technologies I use to build modern mobile applications.',
+                  tag: AppStrings.skillsTag,
+                  title: AppStrings.skillsTitle,
+                  subtitle: AppStrings.skillsSubtitle,
                 ),
 
                 const SizedBox(height: 48),
@@ -85,13 +46,16 @@ class SkillsSection extends StatelessWidget {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount:
                     isMob ? 1 : (R.isTablet(context) ? 2 : 3),
-                    crossAxisSpacing:  isMob ? 16 : (R.isTablet(context) ? 16 : 25),//16,
-                    mainAxisSpacing: isMob ? 16 : (R.isTablet(context) ? 16 : 25),//16,
-                    childAspectRatio: isMob ? 3.5 : (R.isTablet(context) ? 3.0 : 2.6),//isMob ? 4.5 : 3.5,
+                    crossAxisSpacing:
+                    isMob ? 16 : (R.isTablet(context) ? 16 : 25),
+                    mainAxisSpacing:
+                    isMob ? 16 : (R.isTablet(context) ? 16 : 25),
+                    childAspectRatio:
+                    isMob ? 3.5 : (R.isTablet(context) ? 3.0 : 2.6),
                   ),
-                  itemCount: _skills.length,
+                  itemCount: AppStrings.skills.length,
                   itemBuilder: (ctx, i) =>
-                      _SkillCard(skill: _skills[i]),
+                      _SkillCard(skill: AppStrings.skills[i]),
                 ),
               ],
             ),
@@ -102,18 +66,14 @@ class SkillsSection extends StatelessWidget {
   }
 }
 
-class _Skill {
-  const _Skill(this.name, this.level, this.emoji);
-
-  final String name;
-  final String emoji;
-  final double level;
-}
+// ============================
+// SKILL CARD
+// ============================
 
 class _SkillCard extends StatefulWidget {
   const _SkillCard({required this.skill});
 
-  final _Skill skill;
+  final SkillItem skill;
 
   @override
   State<_SkillCard> createState() => _SkillCardState();
@@ -148,9 +108,7 @@ class _SkillCardState extends State<_SkillCard>
     Future.delayed(
       const Duration(milliseconds: 300),
           () {
-        if (mounted) {
-          _ctrl.forward();
-        }
+        if (mounted) _ctrl.forward();
       },
     );
   }
@@ -163,8 +121,7 @@ class _SkillCardState extends State<_SkillCard>
 
   @override
   Widget build(BuildContext context) {
-    final isDark =
-        Theme.of(context).brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _hover = true),
@@ -179,14 +136,14 @@ class _SkillCardState extends State<_SkillCard>
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: _hover
-                ? AppTheme.accentColor.withValues(alpha:0.4)
+                ? AppTheme.accentColor.withValues(alpha: 0.4)
                 : AppTheme.border(context),
           ),
           boxShadow: _hover
               ? [
             BoxShadow(
-              color: AppTheme.accentColor.withValues(alpha:
-                isDark ? 0.15 : 0.08,
+              color: AppTheme.accentColor.withValues(
+                alpha: isDark ? 0.15 : 0.08,
               ),
               blurRadius: 22,
               offset: const Offset(0, 8),

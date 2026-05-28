@@ -1,13 +1,9 @@
-// ============================
-// IMPORTS
-// ============================
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-
 import '../../controller/theme_controller.dart';
 import '../../core/responsive/responsive.dart';
+import '../../core/string/appstring.dart';
 import '../../themes/app_theme.dart';
 
 // ============================
@@ -125,16 +121,6 @@ class _HeroSectionState extends State<HeroSection>
     );
   }
 
-  // Widget _buildMobile(BuildContext context) {
-  //   return Column(
-  //     children: [
-  //       _buildAvatar(context),
-  //       const SizedBox(height: 36),
-  //       _buildText(context),
-  //     ],
-  //   );
-  // }
-
   Widget _buildMobile(BuildContext context) {
     final isMob = R.isMobile(context);
     final size = isMob ? 180.0 : 260.0;
@@ -160,7 +146,7 @@ class _HeroSectionState extends State<HeroSection>
               child: Icon(
                 Icons.person,
                 size: size * 0.6,
-                color: Colors.white.withValues(alpha:0.9),
+                color: Colors.white.withValues(alpha: 0.9),
               ),
             );
           },
@@ -176,16 +162,17 @@ class _HeroSectionState extends State<HeroSection>
       crossAxisAlignment:
       isMob ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: [
+        // ── Available for work badge ──
         Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 14,
             vertical: 6,
           ),
           decoration: BoxDecoration(
-            color: AppTheme.accentColor.withValues(alpha:0.10),
+            color: AppTheme.accentColor.withValues(alpha: 0.10),
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: AppTheme.accentColor.withValues(alpha:0.25),
+              color: AppTheme.accentColor.withValues(alpha: 0.25),
             ),
           ),
           child: Row(
@@ -203,7 +190,7 @@ class _HeroSectionState extends State<HeroSection>
               const SizedBox(width: 8),
 
               Text(
-                'Available for work',
+                AppStrings.availableForWork,
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -216,10 +203,10 @@ class _HeroSectionState extends State<HeroSection>
 
         const SizedBox(height: 20),
 
+        // ── Hi I'm ──
         Text(
-          'Hi, I\'m',
-          textAlign:
-          isMob ? TextAlign.center : TextAlign.left,
+          AppStrings.hiIm,
+          textAlign: isMob ? TextAlign.center : TextAlign.left,
           style: GoogleFonts.poppins(
             fontSize: isMob ? 16 : 18,
             color: AppTheme.textSecondary(context),
@@ -227,10 +214,10 @@ class _HeroSectionState extends State<HeroSection>
           ),
         ),
 
+        // ── Developer name ──
         Text(
-          'Krishna Gopal Sen',
-          textAlign:
-          isMob ? TextAlign.center : TextAlign.left,
+          AppStrings.developerName,
+          textAlign: isMob ? TextAlign.center : TextAlign.left,
           style: GoogleFonts.poppins(
             fontSize: isMob ? 34 : 48,
             fontWeight: FontWeight.w800,
@@ -239,6 +226,7 @@ class _HeroSectionState extends State<HeroSection>
           ),
         ),
 
+        // ── Developer title (gradient) ──
         ShaderMask(
           shaderCallback: (b) {
             return const LinearGradient(
@@ -249,9 +237,8 @@ class _HeroSectionState extends State<HeroSection>
             ).createShader(b);
           },
           child: Text(
-            'Sr. Mobile Application Developer',
-            textAlign:
-            isMob ? TextAlign.center : TextAlign.left,
+            AppStrings.developerTitle,
+            textAlign: isMob ? TextAlign.center : TextAlign.left,
             style: GoogleFonts.poppins(
               fontSize: isMob ? 16 : 22,
               fontWeight: FontWeight.w600,
@@ -262,11 +249,10 @@ class _HeroSectionState extends State<HeroSection>
 
         const SizedBox(height: 18),
 
+        // ── Bio ──
         Text(
-          'Senior Flutter & Android Developer crafting scalable cross-platform mobile applications with modern architectures and real-time solutions.'
-              '\n9+ Years Experience\nFlutter | Kotlin | Android | Firebase | Clean Architecture',
-          textAlign:
-          isMob ? TextAlign.center : TextAlign.left,
+          AppStrings.heroBio,
+          textAlign: isMob ? TextAlign.center : TextAlign.left,
           style: GoogleFonts.poppins(
             fontSize: isMob ? 14 : 16,
             color: AppTheme.textSecondary(context),
@@ -276,26 +262,26 @@ class _HeroSectionState extends State<HeroSection>
 
         const SizedBox(height: 32),
 
+        // ── Action buttons ──
         Wrap(
           spacing: 12,
           runSpacing: 12,
-          alignment:
-          isMob ? WrapAlignment.center : WrapAlignment.start,
+          alignment: isMob ? WrapAlignment.center : WrapAlignment.start,
           children: [
             _GradientButton(
-              label: 'Hire Me',
+              label: AppStrings.hireMe,
               icon: Icons.work_outline,
               onTap: widget.onContact,
             ),
 
             _OutlineButton(
-              label: 'Download CV',
+              label: AppStrings.downloadCV,
               icon: Icons.download_outlined,
               onTap: () {},
             ),
 
             _OutlineButton(
-              label: 'Contact Me',
+              label: AppStrings.contactMe,
               icon: Icons.mail_outline,
               onTap: widget.onContact,
             ),
@@ -304,23 +290,23 @@ class _HeroSectionState extends State<HeroSection>
 
         const SizedBox(height: 36),
 
+        // ── Stat badges ──
         Wrap(
           spacing: 24,
           runSpacing: 12,
-          alignment:
-          isMob ? WrapAlignment.center : WrapAlignment.start,
+          alignment: isMob ? WrapAlignment.center : WrapAlignment.start,
           children: const [
             _StatBadge(
-              value: '9+',
-              label: 'Years Exp.',
+              value: AppStrings.yearsExp,
+              label: AppStrings.yearsExpLabel,
             ),
             _StatBadge(
-              value: '40+',
-              label: 'Apps Built',
+              value: AppStrings.appsBuilt,
+              label: AppStrings.appsBuiltLabel,
             ),
             _StatBadge(
-              value: '15+',
-              label: 'Happy Clients',
+              value: AppStrings.happyClients,
+              label: AppStrings.happyClientsLabel,
             ),
           ],
         ),
@@ -336,6 +322,7 @@ class _HeroSectionState extends State<HeroSection>
       child: Stack(
         alignment: Alignment.center,
         children: [
+          // ── Outer glow ring ──
           Container(
             width: size + 32,
             height: size + 32,
@@ -343,8 +330,8 @@ class _HeroSectionState extends State<HeroSection>
               shape: BoxShape.circle,
               gradient: LinearGradient(
                 colors: [
-                  AppTheme.accentColor.withValues(alpha:0.15),
-                  AppTheme.greenAccent.withValues(alpha:0.10),
+                  AppTheme.accentColor.withValues(alpha: 0.15),
+                  AppTheme.greenAccent.withValues(alpha: 0.10),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -352,6 +339,7 @@ class _HeroSectionState extends State<HeroSection>
             ),
           ),
 
+          // ── Profile photo ──
           Container(
             width: size,
             height: size,
@@ -365,13 +353,12 @@ class _HeroSectionState extends State<HeroSection>
               ),
               boxShadow: [
                 BoxShadow(
-                  color: AppTheme.accentColor.withValues(alpha:0.25),
+                  color: AppTheme.accentColor.withValues(alpha: 0.25),
                   blurRadius: 30,
                   offset: const Offset(0, 12),
                 ),
               ],
             ),
-
             child: Padding(
               padding: const EdgeInsets.all(4),
               child: ClipOval(
@@ -382,7 +369,6 @@ class _HeroSectionState extends State<HeroSection>
                   fit: BoxFit.cover,
                   filterQuality: FilterQuality.high,
                   isAntiAlias: true,
-
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       decoration: const BoxDecoration(
@@ -396,7 +382,7 @@ class _HeroSectionState extends State<HeroSection>
                       child: Icon(
                         Icons.person,
                         size: size * 0.6,
-                        color: Colors.white.withValues(alpha:0.9),
+                        color: Colors.white.withValues(alpha: 0.9),
                       ),
                     );
                   },
@@ -405,6 +391,7 @@ class _HeroSectionState extends State<HeroSection>
             ),
           ),
 
+          // ── Avatar label badge ──
           Positioned(
             bottom: 8,
             right: 0,
@@ -418,7 +405,7 @@ class _HeroSectionState extends State<HeroSection>
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha:0.08),
+                    color: Colors.black.withValues(alpha: 0.08),
                     blurRadius: 18,
                     offset: const Offset(0, 6),
                   ),
@@ -439,7 +426,7 @@ class _HeroSectionState extends State<HeroSection>
                   const SizedBox(width: 4),
 
                   Text(
-                    'Choose Your Avatar',
+                    AppStrings.chooseYourAvatar,
                     style: GoogleFonts.poppins(
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -472,12 +459,10 @@ class _GradientButton extends StatefulWidget {
   final VoidCallback onTap;
 
   @override
-  State<_GradientButton> createState() =>
-      _GradientButtonState();
+  State<_GradientButton> createState() => _GradientButtonState();
 }
 
-class _GradientButtonState
-    extends State<_GradientButton> {
+class _GradientButtonState extends State<_GradientButton> {
   bool _hover = false;
 
   @override
@@ -509,7 +494,7 @@ class _GradientButtonState
             boxShadow: _hover
                 ? [
               BoxShadow(
-                color: AppTheme.accentColor.withValues(alpha:0.25),
+                color: AppTheme.accentColor.withValues(alpha: 0.25),
                 blurRadius: 24,
                 offset: const Offset(0, 10),
               ),
@@ -559,12 +544,10 @@ class _OutlineButton extends StatefulWidget {
   final VoidCallback onTap;
 
   @override
-  State<_OutlineButton> createState() =>
-      _OutlineButtonState();
+  State<_OutlineButton> createState() => _OutlineButtonState();
 }
 
-class _OutlineButtonState
-    extends State<_OutlineButton> {
+class _OutlineButtonState extends State<_OutlineButton> {
   bool _hover = false;
 
   @override
@@ -587,7 +570,7 @@ class _OutlineButtonState
           ),
           decoration: BoxDecoration(
             color: _hover
-                ? AppTheme.accentColor.withValues(alpha:0.08)
+                ? AppTheme.accentColor.withValues(alpha: 0.08)
                 : Colors.transparent,
             border: Border.all(
               color: _hover

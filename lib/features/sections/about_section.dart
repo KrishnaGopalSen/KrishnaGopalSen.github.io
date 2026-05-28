@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:krishnaGopal/themes/app_theme.dart';
 import 'package:get/get.dart';
 
+import '../../core/string/appstring.dart';
+
 class AboutSection extends StatelessWidget {
   const AboutSection({super.key});
 
@@ -30,10 +32,9 @@ class AboutSection extends StatelessWidget {
             child: Column(
               children: [
                 const SectionTitle(
-                  tag: 'ABOUT ME',
-                  title: 'Passionate Flutter & Android Developer',
-                  subtitle:
-                  'Creating scalable and high-performance mobile applications for Android, iOS, and Web.',
+                  tag: AppStrings.aboutTag,
+                  title: AppStrings.aboutTitle,
+                  subtitle: AppStrings.aboutSubtitle,
                 ),
                 const SizedBox(height: 32),
                 isMob
@@ -72,6 +73,7 @@ class AboutSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // ── Info card ──
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(28),
@@ -87,72 +89,63 @@ class AboutSection extends StatelessWidget {
             children: [
               _InfoRow(
                 icon: Icons.person_outline,
-                label: 'Name',
-                value: 'Mr. Krishna Gopal Sen',
+                label: AppStrings.labelName,
+                value: AppStrings.infoName,
               ),
-              Divider(
-                height: 24,
-                color: AppTheme.border(context),
-              ),
+              Divider(height: 24, color: AppTheme.border(context)),
               _InfoRow(
                 icon: Icons.location_on_outlined,
-                label: 'Location',
-                value: 'Indore (India)',
+                label: AppStrings.labelLocation,
+                value: AppStrings.infoLocation,
               ),
-              Divider(
-                height: 24,
-                color: AppTheme.border(context),
-              ),
+              Divider(height: 24, color: AppTheme.border(context)),
               _InfoRow(
                 icon: Icons.work_outline,
-                label: 'Experience',
-                value: '9+ Years',
+                label: AppStrings.labelExperience,
+                value: AppStrings.infoExperience,
               ),
-              Divider(
-                height: 24,
-                color: AppTheme.border(context),
-              ),
+              Divider(height: 24, color: AppTheme.border(context)),
               _InfoRow(
                 icon: Icons.devices_outlined,
-                label: 'Platforms',
-                value: 'Android | iOS | Web',
+                label: AppStrings.labelPlatforms,
+                value: AppStrings.infoPlatforms,
               ),
-              Divider(
-                height: 24,
-                color: AppTheme.border(context),
-              ),
+              Divider(height: 24, color: AppTheme.border(context)),
               _InfoRow(
                 icon: Icons.language,
-                label: 'Languages',
-                value: 'Flutter | Dart | Kotlin | Java',
+                label: AppStrings.labelLanguages,
+                value: AppStrings.infoLanguages,
               ),
             ],
           ),
         ),
+
         const SizedBox(height: 20),
+
+        // ── Mini stats ──
         Row(
           children: [
             Expanded(
               child: _MiniStat(
                 icon: Icons.smartphone,
-                value: '40+',
-                label: 'Apps',
+                value: AppStrings.miniStatApps,
+                label: AppStrings.miniStatAppsLabel,
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: _MiniStat(
                 icon: Icons.people_outline,
-                value: '15+',
-                label: 'Clients',
+                value: AppStrings.miniStatClients,
+                label: AppStrings.miniStatClientsLabel,
               ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: _MiniStat(
                 icon: Icons.star_outline,
-                value: '4.5',
-                label: 'Rating',
+                value: AppStrings.miniStatRating,
+                label: AppStrings.miniStatRatingLabel,
               ),
             ),
           ],
@@ -165,20 +158,21 @@ class AboutSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // ── Heading ──
         Text(
-          'Building Digital Experiences',
+          AppStrings.aboutHeading,
           style: GoogleFonts.poppins(
             fontSize: 22,
             fontWeight: FontWeight.w700,
             color: AppTheme.textPrimary(context),
           ),
         ),
+
         const SizedBox(height: 14),
 
+        // ── Para 1 ──
         Text(
-          'Senior Flutter & Android Developer with 9+ years of experience in building '
-              'scalable and high-performance mobile applications for Android and iOS platforms.'
-              'Skilled in Flutter, Kotlin, Java, Firebase, REST APIs, and real-time application development.',
+          AppStrings.aboutPara1,
           style: GoogleFonts.poppins(
             fontSize: 14,
             color: AppTheme.textSecondary(context),
@@ -189,11 +183,9 @@ class AboutSection extends StatelessWidget {
 
         const SizedBox(height: 12),
 
+        // ── Para 2 ──
         Text(
-          'I also have knowledge of backend technologies including Node.js,'
-              ' Express.js, and MongoDB for building scalable APIs and backend services. '
-              'Experienced in developing enterprise applications including airport transfer systems, '
-              'eCommerce platforms, POS solutions, and multi-vendor apps.',
+          AppStrings.aboutPara2,
           style: GoogleFonts.poppins(
             fontSize: 14,
             color: AppTheme.textSecondary(context),
@@ -203,8 +195,9 @@ class AboutSection extends StatelessWidget {
 
         const SizedBox(height: 24),
 
+        // ── What I bring heading ──
         Text(
-          'What I bring to the table:',
+          AppStrings.aboutWhatIBring,
           style: GoogleFonts.poppins(
             fontSize: 15,
             fontWeight: FontWeight.w600,
@@ -214,16 +207,8 @@ class AboutSection extends StatelessWidget {
 
         const SizedBox(height: 14),
 
-        ...[
-          '⚡ Scalable and high-performance mobile applications.',
-          '📱 Cross-platform Android & iOS development with Flutter.',
-          '🔥 Firebase integration (Auth, Firestore, Push Notifications).',
-          '🌐 REST API development with Node.js & Express.js.',
-          '🗄️ MongoDB database integration and backend handling.',
-          '🗺️ Google Maps & real-time tracking systems.',
-          '🏗️ Clean Architecture with GetX, Riverpod, Bloc & MVVM.',
-          '🚀 Play Store & App Store deployment experience.',
-        ].map(
+        // ── Bullet list ──
+        ...AppStrings.aboutBullets.map(
               (e) => Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Row(
@@ -249,6 +234,10 @@ class AboutSection extends StatelessWidget {
   }
 }
 
+// ============================
+// INFO ROW
+// ============================
+
 class _InfoRow extends StatelessWidget {
   const _InfoRow({
     required this.icon,
@@ -266,7 +255,7 @@ class _InfoRow extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: AppTheme.accentColor.withValues(alpha:0.12),
+            color: AppTheme.accentColor.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
@@ -302,6 +291,10 @@ class _InfoRow extends StatelessWidget {
     );
   }
 }
+
+// ============================
+// MINI STAT
+// ============================
 
 class _MiniStat extends StatelessWidget {
   const _MiniStat({

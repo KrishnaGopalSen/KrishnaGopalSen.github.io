@@ -4,9 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import '../../core/model/all_model.dart';
+import '../../core/string/appstring.dart';
 import '../../themes/app_theme.dart';
-
 
 // ─────────────────────────────────────────────
 // CONTACT SECTION
@@ -52,14 +52,14 @@ class _ContactSectionState extends State<ContactSection> {
     Uri.encodeComponent(_subjectCtr.text.trim());
 
     final String body = Uri.encodeComponent(
-      'Name: ${_nameCtr.text.trim()}\n'
-          'Email: ${_emailCtr.text.trim()}\n'
-          'Contact Number: ${_phoneController.text.trim()}\n'
-          'Message: ${_msgCtr.text.trim()}',
+      '${AppStrings.labelName}: ${_nameCtr.text.trim()}\n'
+          '${AppStrings.emailTitle}: ${_emailCtr.text.trim()}\n'
+          '${AppStrings.contactNumber}: ${_phoneController.text.trim()}\n'
+          '${AppStrings.message}: ${_msgCtr.text.trim()}',
     );
 
     final Uri emailUri = Uri.parse(
-      'mailto:krishnagopalsen22@gmail.com'
+      'mailto:${AppStrings.email}'
           '?subject=$subject'
           '&body=$body',
     );
@@ -177,7 +177,7 @@ class _ContactInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'CONTACT',
+          AppStrings.contact,
           style: GoogleFonts.spaceGrotesk(
             fontSize: 12,
             fontWeight: FontWeight.w700,
@@ -187,7 +187,7 @@ class _ContactInfo extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          "Let's Work\nTogether",
+          AppStrings.letsWorkTogether,
           style: GoogleFonts.spaceGrotesk(
             fontSize: isMobile ? 28 : 38,
             fontWeight: FontWeight.w800,
@@ -197,8 +197,7 @@ class _ContactInfo extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          "Have a project in mind or just want to say hello? "
-              "Fill in the form and I'll get back to you within 24 hours.",
+          AppStrings.contactDescription,
           style: GoogleFonts.inter(
             fontSize: isMobile ? 13 : 15,
             color: AppTheme.textSecondary(context),
@@ -206,10 +205,10 @@ class _ContactInfo extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 36),
-        ..._contactDetails.map((d) => _ContactDetailRow(detail: d)),
+        ...AppStrings.contactDetails.map((d) => _ContactDetailRow(detail: d)),
         const SizedBox(height: 32),
         Row(
-          children: _socialLinks
+          children: AppStrings.socialLinks
               .map((s) => Padding(
             padding: const EdgeInsets.only(right: 10),
             child: _SocialButton(label: s.label, icon: s.icon,url: s.url),
@@ -221,21 +220,11 @@ class _ContactInfo extends StatelessWidget {
   }
 }
 
-class _ContactDetail {
-  final IconData icon;
-  final String label;
-  final String value;
-  const _ContactDetail(this.icon, this.label, this.value);
-}
 
-const List<_ContactDetail> _contactDetails = [
-  _ContactDetail(Icons.email_outlined,       'Email',    'krishnagopalsen22@gmail.com'),
-  _ContactDetail(Icons.phone_outlined,       'Phone',    '+91 87704 00610'),
-  _ContactDetail(Icons.location_on_outlined, 'Location', 'Indore, India'),
-];
+
 
 class _ContactDetailRow extends StatelessWidget {
-  final _ContactDetail detail;
+  final ContactDetail detail;
   const _ContactDetailRow({required this.detail});
 
   @override
@@ -285,53 +274,7 @@ class _ContactDetailRow extends StatelessWidget {
 }
 
 
-class _SocialLink {
-  final String label;
-  final FaIconData icon;
-  final String url;
 
-  const _SocialLink(
-      this.label,
-      this.icon,
-      this.url,
-      );
-}
-
-const List<_SocialLink> _socialLinks = [
-  _SocialLink(
-    'GitHub',
-    FontAwesomeIcons.github,
-    'https://github.com/KrishnaGopalSen',
-  ),
-
-  _SocialLink(
-    'LinkedIn',
-    FontAwesomeIcons.linkedinIn,
-    'https://www.linkedin.com/in/krishna-gopal-8b85338b/',
-  ),
-
-  _SocialLink(
-    'Twitter',
-    FontAwesomeIcons.xTwitter,
-    'https://x.com/krishna28051986',
-  ),
-
-  _SocialLink(
-    'Instagram',
-    FontAwesomeIcons.instagram,
-    'https://www.instagram.com/krishngopal28?igsh=dmE4YjE5bmZhMHN5',
-  ),
-
-  _SocialLink(
-    'WhatsApp',
-    FontAwesomeIcons.whatsapp,
-    'https://wa.me/918770400610',
-  ),
-
-
-
-
-];
 
 class _SocialButton extends StatefulWidget {
   final String label;
@@ -429,7 +372,7 @@ class _ContactForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Send Message',
+              AppStrings.sendMessage,
               style: GoogleFonts.spaceGrotesk(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -442,21 +385,21 @@ class _ContactForm extends StatelessWidget {
                 Expanded(
                   child: _AppTextField(
                     controller: nameCtr,
-                    label: 'Your Name',
-                    hint: 'Enter your name',
-                    validator: (v) => v == null || v.isEmpty ? 'Name required' : null,
+                    label: AppStrings.yourName,
+                    hint: AppStrings.enterYourName,
+                    validator: (v) => v == null || v.isEmpty ? AppStrings.nameRequired : null,
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: _AppTextField(
                     controller: emailCtr,
-                    label: 'Email',
-                    hint: 'contact@gmail.com',
+                    label: AppStrings.emailTitle,
+                    hint: AppStrings.emailHint,
                     keyboardType: TextInputType.emailAddress,
                     validator: (v) {
-                      if (v == null || v.isEmpty) return 'Email required';
-                      if (!v.contains('@')) return 'Invalid email';
+                      if (v == null || v.isEmpty) return AppStrings.emailRequired;
+                      if (!v.contains('@')) return AppStrings.invalidEmail;
                       return null;
                     },
                   ),
@@ -466,26 +409,26 @@ class _ContactForm extends StatelessWidget {
             const SizedBox(height: 16),
             _AppTextField(
               controller: phoneController,
-              label: 'Contact Number',
-              hint: '+91 9876543210',
+              label: AppStrings.contactNumber,
+              hint: AppStrings.contactNumberHint,
               keyboardType: TextInputType.number,
-              validator: (v) => v == null || v.isEmpty ? 'Contact number required' : null,
+              validator: (v) => v == null || v.isEmpty ? AppStrings.contactRequired  : null,
             ),
             const SizedBox(height: 16),
             _AppTextField(
               controller: subjectCtr,
-              label: 'Subject',
-              hint: 'Project Inquiry',
-              validator: (v) => v == null || v.isEmpty ? 'Subject required' : null,
+              label: AppStrings.subject,
+              hint: AppStrings.subjectHint,
+              validator: (v) => v == null || v.isEmpty ? AppStrings.subjectRequired : null,
             ),
             const SizedBox(height: 16),
             _AppTextField(
               controller: msgCtr,
-              label: 'Message',
-              hint: 'Tell me about your project...',
+              label: AppStrings.message,
+              hint: AppStrings.messageHint,
               maxLines: 10,
               minLines: 3,
-              validator: (v) => v == null || v.length < 10 ? 'Message too short' : null,
+              validator: (v) => v == null || v.length < 10 ? AppStrings.messageTooShort : null,
             ),
             const SizedBox(height: 24),
             SizedBox(
@@ -514,7 +457,7 @@ class _ContactForm extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Send Message',
+                      AppStrings.sendMessage,
                       style: GoogleFonts.spaceGrotesk(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
@@ -640,7 +583,7 @@ class _SuccessMessage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            'Message Sent!',
+            AppStrings.messageSent,
             style: GoogleFonts.spaceGrotesk(
               fontSize: 22,
               fontWeight: FontWeight.w700,
@@ -649,7 +592,7 @@ class _SuccessMessage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            "Thanks for reaching out. I'll get back to you within 24 hours.",
+            AppStrings.successDescription,
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
               fontSize: 14,
